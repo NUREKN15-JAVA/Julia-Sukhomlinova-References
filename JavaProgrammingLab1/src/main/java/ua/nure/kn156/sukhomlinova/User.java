@@ -33,7 +33,11 @@ public class User {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public String getFullName() {
+	public String getFullName() throws IllegalStateException {
+		if (lastName==null || firstName==null || lastName.isEmpty() || firstName.isEmpty()){
+			throw new IllegalStateException("First and last name shouldn't be empty");
+			
+		}
 		return new StringBuilder(getLastName()).append(" ").append(getFirstName()).toString(); 
 	}
 	public long getAge() {
