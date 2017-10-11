@@ -8,6 +8,10 @@ import junit.framework.TestCase;
 import ua.nure.kn156.sukhomlinova.User;
 
 public class TestUser extends TestCase {
+	/**
+	 * Excpected age for my birthday.
+	 * Should be updated if any changes(birthday) in setUp() method are made.
+	 */
 	private static final int AGE = 19;
 	private User user;
 	private Date date;

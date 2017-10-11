@@ -8,6 +8,9 @@ public class User {
 	private Long id;
 	private String firstName;
 	private String lastName;
+	/**
+	 * Date of birth
+	 */
 	private Date date;
 	public Long getId() {
 		return id;
@@ -33,9 +36,9 @@ public class User {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public String getFullName() throws IllegalStateException {
+	public String getFullName() throws IllegalArgumentException {
 		if (lastName==null || firstName==null || lastName.isEmpty() || firstName.isEmpty()){
-			throw new IllegalStateException("First and last name shouldn't be empty");
+			throw new IllegalArgumentException("First and last name shouldn't be empty");
 			
 		}
 		return new StringBuilder(getLastName()).append(" ").append(getFirstName()).toString(); 
