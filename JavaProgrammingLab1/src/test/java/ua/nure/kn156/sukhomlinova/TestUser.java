@@ -8,6 +8,9 @@ import junit.framework.TestCase;
 import ua.nure.kn156.sukhomlinova.User;
 
 public class TestUser extends TestCase {
+	private static final String EXPECTED_FULL_NAME = "Sukhomlinova Julia";
+	private static final String LAST_NAME = "Sukhomlinova";
+	private static final String FIRST_NAME = "Julia";
 	private static final String EMPTY_NAME_EXCEPTION_MESSAGE = "First and last name shouldn't be empty";
 	/**
 	 * Excpected age for my birthday.
@@ -27,9 +30,9 @@ public class TestUser extends TestCase {
 	}
 
 	public void testGetFullName() {
-		user.setFirstName("Julia");
-		user.setLastName("Sukhomlinova");
-		assertEquals("Sukhomlinova Julia", user.getFullName());
+		user.setFirstName(FIRST_NAME);
+		user.setLastName(LAST_NAME);
+		assertEquals(EXPECTED_FULL_NAME, user.getFullName());
 	}
 
 	public void testGetAse() {
