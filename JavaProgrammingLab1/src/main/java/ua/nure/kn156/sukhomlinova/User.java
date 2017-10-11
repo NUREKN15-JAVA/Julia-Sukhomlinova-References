@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class User {
+	private static final String EMPTY_NAME_EXCEPTION_MESSAGE = "First and last name shouldn't be empty";
 	private Long id;
 	private String firstName;
 	private String lastName;
@@ -38,7 +39,7 @@ public class User {
 	}
 	public String getFullName() throws IllegalArgumentException {
 		if (lastName==null || firstName==null || lastName.isEmpty() || firstName.isEmpty()){
-			throw new IllegalArgumentException("First and last name shouldn't be empty");
+			throw new IllegalArgumentException(EMPTY_NAME_EXCEPTION_MESSAGE);
 			
 		}
 		return new StringBuilder(getLastName()).append(" ").append(getFirstName()).toString(); 
