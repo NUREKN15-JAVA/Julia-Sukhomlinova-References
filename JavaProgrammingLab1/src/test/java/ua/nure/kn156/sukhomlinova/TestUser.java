@@ -14,7 +14,7 @@ public class TestUser extends TestCase {
 	private static final String EMPTY_NAME_EXCEPTION_MESSAGE = "First and last name shouldn't be empty";
 	/**
 	 * Excpected age for my birthday.
-	 * Should be updated if any changes(birthday) in setUp() method are made.
+	 * Should be updated if any changes(birthday) in setUp() method were made.
 	 */
 	private static final int AGE = 19;
 	private User user;
