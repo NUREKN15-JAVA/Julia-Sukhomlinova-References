@@ -1,11 +1,11 @@
-package ua.nure.kn156.sukhomlinova;
+package ua.nure.kn156.sukhomlinova.entity;
 
 
 import java.util.Calendar;
 import java.util.Date;
 
 import junit.framework.TestCase;
-import ua.nure.kn156.sukhomlinova.User;
+import ua.nure.kn156.sukhomlinova.entity.User;
 
 public class TestUser extends TestCase {
 	private static final String EXPECTED_FULL_NAME = "Sukhomlinova Julia";

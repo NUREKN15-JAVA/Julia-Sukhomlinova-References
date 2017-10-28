@@ -1,10 +1,11 @@
-package ua.nure.kn156.sukhomlinova;
+package ua.nure.kn156.sukhomlinova.entity;
 
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class User {
+
 	private static final String EMPTY_NAME_EXCEPTION_MESSAGE = "First and last name shouldn't be empty";
 	private Long id;
 	private String firstName;
@@ -13,6 +14,14 @@ public class User {
 	 * Date of birth
 	 */
 	private Date date;
+	
+	public User(){}
+	public User(User user){
+		id=user.id;
+		firstName=user.firstName;
+		lastName=user.lastName;
+		date=user.date;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -50,6 +59,48 @@ public class User {
 		calendar.setTime(getDate());
 		long yearOfBirth=calendar.get(Calendar.YEAR);
 		return currentYear-yearOfBirth;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		return true;
 	}
 
 }
