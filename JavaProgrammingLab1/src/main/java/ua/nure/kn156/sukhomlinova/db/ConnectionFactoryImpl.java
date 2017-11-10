@@ -3,10 +3,10 @@ package ua.nure.kn156.sukhomlinova.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import ua.nure.kn156.sukhomlinova.exception.DatabaseException;
+import java.util.Properties;
 
 public class ConnectionFactoryImpl implements ConnectionFactory {
+
 	private String driver;
 	private String url;
 	private String user;
@@ -19,6 +19,13 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 		this.password = password;
 	}
 
+	public ConnectionFactoryImpl(Properties properties) {
+		this.driver = properties.getProperty("connection.driver");
+		this.url = properties.getProperty("connection.url");
+		this.user = properties.getProperty("connection.user");
+		this.password = properties.getProperty("connection.password");
+	}
+
 	@Override
 	public Connection createConnection() throws DatabaseException {
 		try {
@@ -26,10 +33,12 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
+
 		try {
 			return DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
 			throw new DatabaseException(e);
 		}
 	}
+
 }

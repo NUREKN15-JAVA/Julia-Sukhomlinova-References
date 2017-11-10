@@ -1,7 +1,8 @@
 package ua.nure.kn156.sukhomlinova.db;
 
-import ua.nure.kn156.sukhomlinova.exception.DatabaseException;
+import java.sql.Connection;
 
 public interface ConnectionFactory {
-	public java.sql.Connection createConnection() throws DatabaseException;
+	Connection createConnection() throws DatabaseException;
+
 }

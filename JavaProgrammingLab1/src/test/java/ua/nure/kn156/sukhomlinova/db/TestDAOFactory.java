@@ -13,7 +13,7 @@ public class TestDAOFactory extends TestCase {
 
 	public void testGetUserDAO() {
 		assertNotNull("DAOFactory instance is null.", dao);
-		UserDAO userDAO = dao.getUserDAO();
+		UserDAO userDAO = dao.getUserDao();
 		assertNotNull("UserDao instance is null", userDAO);
 	}
 

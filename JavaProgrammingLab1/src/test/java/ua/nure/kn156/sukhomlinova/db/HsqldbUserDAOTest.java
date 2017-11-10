@@ -1,36 +1,43 @@
 package ua.nure.kn156.sukhomlinova.db;
 
+import java.util.Collection;
+import java.util.Date;
+
 import org.dbunit.DatabaseTestCase;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 
-import ua.nure.kn156.sukhomlinova.entity.User;
-import ua.nure.kn156.sukhomlinova.exception.DatabaseException;
+import ua.nure.kn156.sukhomlinova.User;
+import ua.nure.kn156.sukhomlinova.db.ConnectionFactory;
+import ua.nure.kn156.sukhomlinova.db.ConnectionFactoryImpl;
+import ua.nure.kn156.sukhomlinova.db.DatabaseException;
+import ua.nure.kn156.sukhomlinova.db.HsqldbUserDao;
 
-import java.util.Collection;
-import java.util.Date;
-
-public class HsqldbUserDAOTest extends DatabaseTestCase {
-
-	private HsqldbUserDAO dao;
+public class HsqldbUserDaoTest extends DatabaseTestCase {
+	private HsqldbUserDao dao;
 	private ConnectionFactory connectionFactory;
+	private User testUser;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		dao = new HsqldbUserDAO(connectionFactory);
+		dao = new HsqldbUserDao(connectionFactory);
+		testUser = new User();
+		testUser.setFirstName("John");
+		testUser.setLastName("Doe");
+		testUser.setDate(new Date());
+		testUser = dao.create(testUser);
 	}
 
 	public void testCreate() {
 		User user = new User();
-		user.setFirstName("Julia");
-		user.setLastName("Sukhomlinova");
+		user.setFirstName("John");
+		user.setLastName("Doe");
 		user.setDate(new Date());
-
 		assertNull(user.getId());
-		User createdUser = null;
+		User createdUser;
 		try {
 			createdUser = dao.create(user);
 			assertNotNull(createdUser);
@@ -42,61 +49,47 @@ public class HsqldbUserDAOTest extends DatabaseTestCase {
 		}
 	}
 
-	public void testFind() {
-		final Long id = 1001L;
+	public void testFindAll() {
 		try {
-			User user = dao.find(id);
-			assertNotNull("User is null", user);
-			assertEquals("Indeces does not match", id, user.getId());
+			Collection collection = dao.findAll();
+			assertNotNull("Collection is null", collection);
+			assertEquals("Collection size.", 3, collection.size());
 		} catch (DatabaseException e) {
 			fail(e.toString());
 		}
 	}
 
-	public void testFindIdIsMissing() {
-		final Long id = 200L;
+	public void testFind() {
 		try {
-			User user = dao.find(id);
-			assertNull("User must be null", user);
+			User foundUser = dao.find(testUser.getId());
+			assertEquals(testUser.getId(), foundUser.getId());
 		} catch (DatabaseException e) {
 			fail(e.toString());
 		}
 	}
 
 	public void testUpdate() {
-		final Long id = 1000L;
 		try {
-			User user = dao.find(id);
-			assertNotNull("User is missing", user);
-			user.setFirstName("Leonid");
-			dao.update(user);
-			User updatedUser = dao.find(id);
-			assertNotNull("User has not been updated", updatedUser);
-		assertTrue(user.equals(updatedUser));
+			Long id = testUser.getId();
+			testUser.setFirstName("Mark");
+			dao.update(testUser);
+			User foundUser = dao.find(id);
+			assertEquals("Mark", foundUser.getFirstName());
 		} catch (DatabaseException e) {
 			fail(e.toString());
 		}
 	}
 
 	public void testDelete() {
-		User user = null;
-		final Long id = 1000L;
 		try {
-			user = dao.find(id);
-			assertNotNull("User is missing", user);
-			dao.delete(user);
-			User deletedUser = dao.find(id);
-			assertNull("User has not been deleted", deletedUser);
-		} catch (DatabaseException e) {
-			fail(e.toString());
-		}
-	}
+			dao.delete(testUser);
+			try {
+				dao.find(testUser.getId());
+				fail("Expected DatabaseException");
+			} catch (DatabaseException e) {
+				assertEquals("No user in DB with such id", e.getMessage());
+			}
 
-	public void testFindAll() {
-		try {
-			Collection<User> collection = dao.findAll();
-			assertNotNull("Collection is null", collection);
-			assertEquals("Collection size", 2, collection.size());
 		} catch (DatabaseException e) {
 			fail(e.toString());
 		}
@@ -111,6 +104,7 @@ public class HsqldbUserDAOTest extends DatabaseTestCase {
 
 	@Override
 	protected IDataSet getDataSet() throws Exception {
-		return new XmlDataSet(getClass().getClassLoader().getResourceAsStream("usersDataSet.xml"));
+		IDataSet dataSet = new XmlDataSet(getClass().getClassLoader().getResourceAsStream("usersDataSet.xml"));
+		return dataSet;
 	}
 }
