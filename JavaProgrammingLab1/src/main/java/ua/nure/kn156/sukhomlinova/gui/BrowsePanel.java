@@ -104,7 +104,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 	private JTable getUserTable() {
 		if (userTable == null) {
 			userTable = new JTable();
-			userTable.setName("userTable"); //$NON-NLS-1$
+			userTable.setName("userTable");
 		}
 		return userTable;
 	}
@@ -130,7 +130,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 		} else if ("edit".equalsIgnoreCase(actionCommand)) {
 			int selectedRow = userTable.getSelectedRow();
 			if (selectedRow == -1) {
-				JOptionPane.showMessageDialog(this, "You have to choose the row ", "Edit user",
+				JOptionPane.showMessageDialog(this, "You have to choose a user ", "Edit user",
 						JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}

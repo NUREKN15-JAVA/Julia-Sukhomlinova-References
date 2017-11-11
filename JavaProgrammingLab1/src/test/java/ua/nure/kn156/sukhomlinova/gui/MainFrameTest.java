@@ -131,18 +131,6 @@ public class MainFrameTest extends JFCTestCase {
 		}
 	}
 
-	private void fillFields(String firstName, String lastName, Date now) {
-		JTextField firstNameField = (JTextField) find(JTextField.class, "firstNameField");
-		JTextField lastNameField = (JTextField) find(JTextField.class, "lastNameField");
-		JTextField dateOfBirthField = (JTextField) find(JTextField.class, "dateOfBirthField");
-
-		getHelper().sendString(new StringEventData(this, firstNameField, firstName));
-		getHelper().sendString(new StringEventData(this, lastNameField, lastName));
-		DateFormat formatter = DateFormat.getDateInstance();
-		String date = formatter.format(now);
-		getHelper().sendString(new StringEventData(this, dateOfBirthField, date));
-	}
-
 	public void testCancelAddUser() {
 		try {
 			String firstName = "John";
@@ -174,6 +162,20 @@ public class MainFrameTest extends JFCTestCase {
 			fail(e.toString());
 		}
 	}
+	
+	private void fillFields(String firstName, String lastName, Date now) {
+		JTextField firstNameField = (JTextField) find(JTextField.class, "firstNameField");
+		JTextField lastNameField = (JTextField) find(JTextField.class, "lastNameField");
+		JTextField dateOfBirthField = (JTextField) find(JTextField.class, "dateOfBirthField");
+
+		getHelper().sendString(new StringEventData(this, firstNameField, firstName));
+		getHelper().sendString(new StringEventData(this, lastNameField, lastName));
+		DateFormat formatter = DateFormat.getDateInstance();
+		String date = formatter.format(now);
+		getHelper().sendString(new StringEventData(this, dateOfBirthField, date));
+	}
+
+	
 
 	public void testDeleteUser() {
 		try {
@@ -234,15 +236,7 @@ public class MainFrameTest extends JFCTestCase {
 			fail(e.toString());
 		}
 	}
-
-	private void findDialog(String title) {
-		JDialog dialog;
-		DialogFinder dFinder = new DialogFinder(title);
-		dialog = (JDialog) dFinder.find();
-		assertNotNull("Could not find dialog '" + title + "'", dialog);
-		getHelper().disposeWindow(dialog, this);
-	}
-
+	
 	public void testCancelEditUser() {
 		try {
 			String firstName = "John";
@@ -294,6 +288,16 @@ public class MainFrameTest extends JFCTestCase {
 			fail(e.toString());
 		}
 	}
+
+	private void findDialog(String title) {
+		JDialog dialog;
+		DialogFinder dFinder = new DialogFinder(title);
+		dialog = (JDialog) dFinder.find();
+		assertNotNull("Could not find dialog '" + title + "'", dialog);
+		getHelper().disposeWindow(dialog, this);
+	}
+
+	
 
 	public void testDetailsUser() {
 		try {

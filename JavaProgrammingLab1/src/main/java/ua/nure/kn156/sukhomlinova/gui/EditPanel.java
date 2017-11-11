@@ -21,7 +21,6 @@ public class EditPanel extends AddPanel {
 	}
 
 	protected void doAction(ActionEvent e) throws ParseException {
-		System.out.println(user);
 		if ("ok".equalsIgnoreCase(e.getActionCommand())) {
 			user.setFirstName(getFirstNameField().getText());
 			user.setLastName(getLastNameField().getText());
@@ -36,7 +35,7 @@ public class EditPanel extends AddPanel {
 			try {
 				parent.getDAO().update(user);
 			} catch (DatabaseException e1) {
-				JOptionPane.showMessageDialog(this, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, e1.getMessage(), "Error occured", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

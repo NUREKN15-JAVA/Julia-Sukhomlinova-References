@@ -20,16 +20,18 @@ public class UserTableModel extends AbstractTableModel {
 		super();
 		this.users = new ArrayList(users);
 	}
+	
+	@Override
+	public int getRowCount() {
+		return users.size();
+	}
 
 	@Override
 	public int getColumnCount() {
 		return COLUMN_NAMES.length;
 	}
 
-	@Override
-	public int getRowCount() {
-		return users.size();
-	}
+	
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
@@ -44,15 +46,17 @@ public class UserTableModel extends AbstractTableModel {
 		}
 		return null;
 	}
+	
+	public String getColumnName(int column) {
+		return COLUMN_NAMES[column];
+	}
+
 
 	public Class getColumnClass(int columnIndex) {
 		return COLUMN_CLASSES[columnIndex];
 	}
 
-	public String getColumnName(int column) {
-		return COLUMN_NAMES[column];
-	}
-
+	
 	public User getUser(int index) {
 		return (User) users.get(index);
 	}
@@ -63,7 +67,7 @@ public class UserTableModel extends AbstractTableModel {
 	}
 
 	public void clearUsers() {
-		this.users = new ArrayList();
+		this.users = new ArrayList<User>();
 	}
 
 }

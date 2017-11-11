@@ -38,8 +38,9 @@ public class MainFrame extends JFrame {
 
 	private void initialize() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle(Messages.getString("MainFrame.user_management"));
 		this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		this.setTitle(Messages.getString("MainFrame.user_management")); //$NON-NLS-1$
+		 
 		this.setContentPane(getContentPanel());
 	}
 
