@@ -301,37 +301,26 @@ public class MainFrameTest extends JFCTestCase {
 
 	public void testDetailsUser() {
 		try {
-			mockUserDAO.expectAndReturn("findAll", users);
-
 			JTable table = (JTable) find(JTable.class, "userTable");
-			assertEquals(1, table.getRowCount());
-
 			JButton detailsButton = (JButton) find(JButton.class, "detailsButton");
-			getHelper().enterClickAndLeave(new MouseEventData(this, detailsButton));
-
-			String title = "Edit user";
-			findDialog(title);
-
 			getHelper().enterClickAndLeave(new JTableMouseEventData(this, table, 0, 0, 1));
 			getHelper().enterClickAndLeave(new MouseEventData(this, detailsButton));
-
 			find(JPanel.class, "detailsPanel");
-
 			JTextField firstNameField = (JTextField) find(JTextField.class, "firstNameField");
 			JTextField lastNameField = (JTextField) find(JTextField.class, "lastNameField");
-			JTextField dateOfBirthField = (JTextField) find(JTextField.class, "dateOfBirthField");
-
+			JTextField AgeField = (JTextField) find(JTextField.class, "ageField");
+			
 			assertEquals("George", firstNameField.getText());
 			assertEquals("Cena", lastNameField.getText());
-
-			JButton backButton = (JButton) find(JButton.class, "backButton");
-			getHelper().enterClickAndLeave(new MouseEventData(this, backButton));
+			assertEquals("0", AgeField.getText());
+			JButton okButton = (JButton) find(JButton.class, "okButton");
+			mockUserDAO.expectAndReturn("findAll", users);
+			getHelper().enterClickAndLeave(new MouseEventData(this, okButton));
 
 			find(JPanel.class, "browsePanel");
 			table = (JTable) find(JTable.class, "userTable");
 			assertEquals(1, table.getRowCount());
-			mockUserDAO.verify();
-
+			
 		} catch (Exception e) {
 			fail(e.toString());
 		}

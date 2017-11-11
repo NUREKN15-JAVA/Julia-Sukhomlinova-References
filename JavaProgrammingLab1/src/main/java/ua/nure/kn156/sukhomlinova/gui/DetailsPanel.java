@@ -1,62 +1,120 @@
 package ua.nure.kn156.sukhomlinova.gui;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import ua.nure.kn156.sukhomlinova.User;
 import ua.nure.kn156.sukhomlinova.db.DatabaseException;
 import ua.nure.kn156.sukhomlinova.util.Messages;
 
-public class DetailsPanel extends AddPanel {
 
-	private User user;
-	private JButton backButton;
+	public class DetailsPanel extends JPanel implements ActionListener {
 
-	public DetailsPanel(MainFrame mainFrame) {
-		super(mainFrame);
-		setName("detailsPanel"); 
-	}
-
-	protected void doAction(ActionEvent e) throws ParseException {
-		if ("ok".equalsIgnoreCase(e.getActionCommand())) { 
-			user.setFirstName(getFirstNameField().getText());
-			user.setLastName(getLastNameField().getText());
-			DateFormat format = DateFormat.getDateInstance();
+		private MainFrame parent;
+		private JPanel buttonPanel;
+		private JPanel fieldPanel;
+		private JButton okButton;
+		private JTextField AgeField;
+		private JTextField lastNameField;
+		private JTextField firstNameField;
+		private User user;
+		
+		public DetailsPanel(MainFrame frame) {
+			parent = frame;
+			initialize();
 		}
-	}
 
-	public void setUser(User user) {
-		DateFormat format = DateFormat.getDateInstance();
-		this.user = user;
-		getFirstNameField().setText(user.getFirstName());
-		getFirstNameField().setEditable(false);
-		getLastNameField().setText(user.getLastName());
-		getLastNameField().setEditable(false);
-		getDateOfBirthField().setText(format.format(user.getDate()));
-		getDateOfBirthField().setEditable(false);
-	}
-
-	protected JPanel getButtonPanel() {
-		if (buttonPanel == null) {
-			buttonPanel = new JPanel();
-			buttonPanel.add(getBackButton(), null);
+		private void initialize() {
+			this.setName("detailsPanel"); 
+			this.setLayout(new BorderLayout());
+			this.add(getFieldPanel(), BorderLayout.NORTH);
+			this.add(getButtonPanel(), BorderLayout.SOUTH);
 		}
-		return buttonPanel;
-	}
 
-	private JButton getBackButton() {
-		if (backButton == null) {
-			backButton = new JButton();
-			backButton.setText(Messages.getString("DetailsPanel.back")); 
-			backButton.setName("backButton"); 
-			backButton.setActionCommand("back"); 
-			backButton.addActionListener(this);
+		private JPanel getButtonPanel() {
+			if (buttonPanel == null) {
+				buttonPanel = new JPanel();
+				buttonPanel.add(getOkButton());
+			}
+			return buttonPanel;
 		}
-		return backButton;
-	}
+
+		private JButton getOkButton() {
+			if (okButton == null) {
+				okButton = new JButton();
+				okButton.setText(Messages.getString("AddPanel.ok")); 
+				okButton.setName("okButton"); 
+				okButton.setActionCommand("ok"); 
+				okButton.addActionListener(this);
+			}
+			return okButton;
+		}
+
+		private JPanel getFieldPanel() {
+			if (fieldPanel == null) {
+				fieldPanel = new JPanel();
+				fieldPanel.setLayout(new GridLayout(3, 2));
+				addLabeledField(fieldPanel, Messages.getString("AddPanel.first_name"), getFirstNameField()); 
+				addLabeledField(fieldPanel, Messages.getString("AddPanel.last_name"), getLastNameField());
+				addLabeledField(fieldPanel, Messages.getString("DetailsPanel.age"), getAgeField());  
+			}
+			return fieldPanel;
+		}
+
+		private JTextField getAgeField() {
+			if (AgeField == null) {
+				AgeField = new JTextField();
+				AgeField.setName("ageField"); 
+			}
+			return AgeField;
+		}
+
+		private JTextField getLastNameField() {
+			if (lastNameField == null) {
+				lastNameField = new JTextField();
+				lastNameField.setName("lastNameField");
+			}
+			return lastNameField;
+		}
+
+		private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
+			JLabel label = new JLabel(labelText);
+			label.setLabelFor(textField);
+			panel.add(label);
+			panel.add(textField);
+			
+		}
+
+		private JTextField getFirstNameField() {
+			if (firstNameField == null) {
+				firstNameField = new JTextField();
+				firstNameField.setName("firstNameField"); 
+			}
+			return firstNameField;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if ("".equalsIgnoreCase(e.getActionCommand())) 
+				this.setVisible(false);
+			this.setVisible(false);
+			parent.showBrowsePanel();
+		}
+
+		  public void setUser(User user) {
+		        this.user = user;
+		        getFirstNameField().setText(user.getFirstName());
+		        getLastNameField().setText(user.getLastName());
+		        getAgeField().setText(String.valueOf(user.getAge()));
+		    }
 
 }
