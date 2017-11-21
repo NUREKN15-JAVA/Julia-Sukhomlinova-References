@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Properties;
 
 import ua.nure.kn156.sukhomlinova.User;
 

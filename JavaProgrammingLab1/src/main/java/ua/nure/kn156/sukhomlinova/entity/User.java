@@ -16,6 +16,13 @@ public class User {
 	private Date date;
 	
 	public User(){}
+	public User(Long id, String firstName, String lastName, Date date) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.date = date;
+	}
 	public User(User user){
 		id=user.id;
 		firstName=user.firstName;
