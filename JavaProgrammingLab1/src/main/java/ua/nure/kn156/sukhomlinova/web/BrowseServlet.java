@@ -66,7 +66,7 @@ public class BrowseServlet extends HttpServlet {
 		req.getRequestDispatcher("/details").forward(req, resp);
 
 	}
-	
+
 	/**
 	 * 
 	 * @param req
