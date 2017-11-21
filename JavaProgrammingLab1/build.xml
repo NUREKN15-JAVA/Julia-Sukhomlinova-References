@@ -4,28 +4,19 @@
 	
 	<property name="main-resources-dir" value="${basedir}/src/main/resources" />
 	<property name="main-java-dir" value="${basedir}/src/main/java" />
-	
 	<property name="build-dir" value="${basedir}/target" />
 	<property name="classes-dir" value="${build-dir}" />
-	
-	
 	<property name="lib.dir" value="${basedir}/lib" />
-	
 	<property name="main-webapp-dir" value="${basedir}/src/webapp" />
 	<property name="main-webapp-webinf-dir" value="${main-webapp-dir}/WEB-INF" />
 	<property name="test-java-dir" value="${basedir}/src/test/java" />
 	<property name="test-result-dir" value="${build-dir}/test-result" />
-	
-	
 	<property name="war-name" value="users" />
 	<property name="war-dir" value="${build-dir}/${war-name}" />
 	<property name="war-jsp-dir" value="${war-dir}" />
 	<property name="war-webinf-dir" value="${war-dir}/WEB-INF" />
 	<property name="war-lib-dir" value="${war-webinf-dir}/lib" />
 	<property name="war-classes-dir" value="${war-webinf-dir}/classes" />
-	
-
-
 	
 	<target name="clean">
 		<delete dir="${build-dir}">
