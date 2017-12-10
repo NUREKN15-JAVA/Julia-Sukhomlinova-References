@@ -15,7 +15,7 @@ import ua.nure.kn156.sukhomlinova.db.ConnectionFactoryImpl;
 import ua.nure.kn156.sukhomlinova.db.DatabaseException;
 import ua.nure.kn156.sukhomlinova.db.HsqldbUserDao;
 
-public class HsqldbUserDaoTest extends DatabaseTestCase {
+public class HsqldbUserDAOTest extends DatabaseTestCase {
 	private HsqldbUserDao dao;
 	private ConnectionFactory connectionFactory;
 	private User testUser;

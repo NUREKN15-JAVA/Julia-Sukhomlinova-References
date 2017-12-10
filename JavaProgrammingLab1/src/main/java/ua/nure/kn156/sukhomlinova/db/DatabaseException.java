@@ -1,6 +1,6 @@
 package ua.nure.kn156.sukhomlinova.db;
 
-public class DatabaseException extends Exception {
+public class DatabaseException extends RuntimeException {
 
 	public DatabaseException(Exception e) {
 		super(e);
